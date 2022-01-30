@@ -1,0 +1,37 @@
+/*
+	Create Orders 
+
+	- An order must be created for a store with available product stock.
+	
+	- An order is created with status “1” (Awaiting shipment).
+		
+		Status: 
+			1 - Awaiting shipment
+			2 - In transit
+			3 - Delivered
+			4 - Canceled;
+	
+	- Create endpoint for status update.
+	
+	- This endpoint can only change the status attribute and only the
+	order staff can change the status;
+	
+	- When the status is canceled, the item's stock must be returned;
+
+	Update Stock
+	- The stock quantity cannot be less than zero;
+	- Only a manager can update the quantity in stock for a sotore that is related to his own;
+
+*/
+
+Pendente:
+
+// Criar CRUDs:
+	- osf.brands
+	- osf.categories
+		
+// Banco dependente:
+	- osf.stocks
+
+	
+	
