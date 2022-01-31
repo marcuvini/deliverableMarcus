@@ -27,6 +27,11 @@ public class OrderItemsController {
         return this.orderItemsService.getAllOrderItems();
     }
 	
+	@GetMapping(value = {"/{id}"})
+    public OrderItems getOrderItemsById(@PathVariable (value = "id") long itemId) {
+        return this.orderItemsService.getOrderItem(itemId);
+    }
+	
 	@PostMapping
 	public void registerNewOrderItem(@RequestBody OrderItems orderItem) {
 		orderItemsService.addNewOrderItem(orderItem);

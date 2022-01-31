@@ -27,6 +27,11 @@ public class OrdersController {
         return this.ordersService.getAllOrders();
     }
 	
+	@GetMapping(value = {"/{id}"})
+    public Orders getOrderById(@PathVariable (value = "id") long orderId) {
+        return this.ordersService.getOrder(orderId);
+    }
+	
 	@PostMapping
 	public void registerNewOrder(@RequestBody Orders order) {
 		ordersService.addNewOrder(order);

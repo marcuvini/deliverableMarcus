@@ -11,7 +11,7 @@ import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name = "osf.staffs")
-public class Staff {
+public class Staffs {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,12 +44,12 @@ public class Staff {
 	@Column(name = "managerId")
 	private int managerId;
 	
-	public Staff() {
+	public Staffs() {
 		
 	}
 	
 	
-	public Staff(String firstName, String lastName, String email, String phone, int active, int storeId,
+	public Staffs(String firstName, String lastName, String email, String phone, int active, int storeId,
 			int managerId) {
 		super();
 		this.firstName = firstName;

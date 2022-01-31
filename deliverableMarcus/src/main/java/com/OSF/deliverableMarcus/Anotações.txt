@@ -26,10 +26,7 @@
 
 Pendente:
 
-// Criar CRUDs:
-	- osf.brands
-	- osf.categories
-		
+	
 // Banco dependente:
 	- osf.stocks
 

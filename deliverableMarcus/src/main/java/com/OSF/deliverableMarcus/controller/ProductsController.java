@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.OSF.deliverableMarcus.entity.Products;
 import com.OSF.deliverableMarcus.service.ProductsService;
 
+
 @RestController
 @RequestMapping("/api/osf.products")
 public class ProductsController {
@@ -23,8 +24,13 @@ public class ProductsController {
 	private ProductsService productsService;
 	
 	@GetMapping(value = { "", "/" })
-    public List<Products> getProduct() {
+    public List<Products> getProducts() {
         return this.productsService.getAllProducts();
+    }
+	
+	@GetMapping(value = {"/{id}"})
+    public Products getProductById(@PathVariable (value = "id") long productId) {
+        return this.productsService.getProduct(productId);
     }
 	
 	@PostMapping

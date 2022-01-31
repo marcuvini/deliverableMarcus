@@ -3,67 +3,71 @@ package com.OSF.deliverableMarcus.service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.OSF.deliverableMarcus.entity.Staff;
-import com.OSF.deliverableMarcus.exception.ResourceExceptionHandler;
-import com.OSF.deliverableMarcus.repository.StaffRepository;
+import com.OSF.deliverableMarcus.entity.Staffs;
+import com.OSF.deliverableMarcus.repository.StaffsRepository;
 
 
 @Service
-public class StaffService {
+public class StaffsService {
 
-	private ResourceExceptionHandler resExHand;
 		
-	private StaffRepository staffRepository;
+	private StaffsRepository staffsRepository;
 	
 	@Autowired
-	public StaffService(StaffRepository staffRepository) {
+	public StaffsService(StaffsRepository staffsRepository) {
 		super();
-		this.staffRepository = staffRepository;
+		this.staffsRepository = staffsRepository;
 	}
 
 	// GET ALL STAFF
 	
-	public List<Staff> getAllStaff() {
-        return staffRepository.findAll();
+	public List<Staffs> getAllStaff() {
+        return staffsRepository.findAll();
     }
 
 	// GET STAFF BY ID
 	
-    public Staff getStaff(long id) {
-        return staffRepository
+    public Staffs getStaff(long id) {
+        return staffsRepository
           .findById(id)
-          .orElseThrow(() -> resExHand.new ResourceNotFoundException("Staff not found"));
+          .orElseThrow(() -> new IllegalStateException("Staff not found"));
     }
  	
     // CREATE NEW STAFF
     
- 		public void addNewStaff(Staff staff) {
-		this.staffRepository.save(staff);
+ 		public void addNewStaff(Staffs staff) {
+ 			Optional<Staffs> staffOptional = staffsRepository
+ 					.findStaffByEmail(staff.getEmail());
+ 			if(staffOptional.isPresent()) {
+ 				throw new IllegalStateException("Email já existente");
+ 			}
+		this.staffsRepository.save(staff);
 	}
  		
  	// DELETE STAFF
  		
  		public void deleteStaff(long staffId) {
- 			staffRepository.findById(staffId);
- 			boolean exists = staffRepository.existsById(staffId);
+ 			staffsRepository.findById(staffId);
+ 			boolean exists = staffsRepository.existsById(staffId);
  			if (!exists) {
  				throw new IllegalStateException("Staff with id" + staffId + "does not exists.");
  				
  			}
- 			 	staffRepository.deleteById(staffId);			
+ 			 	staffsRepository.deleteById(staffId);			
  		}
 
  	// UPDATE STAFF
  		
  		@Transactional
-		public void updateStaff(Staff staff, long staffId) {
- 			// staffRepository.findById(staffId);
-			Staff existingStaff = this.staffRepository.findById(staffId)
+		public void updateStaff(Staffs staff, long staffId) {
+ 			// staffsRepository.findById(staffId);
+			Staffs existingStaff = this.staffsRepository.findById(staffId)
 					.orElseThrow(() -> new IllegalStateException("staff with id" + staffId + "does not exists."));
  			 
 			if (staff.getFirstName() != null &&

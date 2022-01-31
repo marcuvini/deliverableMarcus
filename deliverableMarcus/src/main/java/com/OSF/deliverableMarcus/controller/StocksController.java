@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.OSF.deliverableMarcus.entity.Stores;
-import com.OSF.deliverableMarcus.service.StoresService;
+import com.OSF.deliverableMarcus.entity.Stocks;
+import com.OSF.deliverableMarcus.service.StocksService;
 
 @RestController
-@RequestMapping("/api/osf.stores")
-public class StoresController {
+@RequestMapping("/api/osf.stocks")
+public class StocksController {
 	
 	@Autowired
-	private StoresService storesService;
+	private StocksService stocksService;
 	
 	@GetMapping(value = { "", "/" })
-    public List<Stores> getStore() {
-        return this.storesService.getAllStores();
+    public List<Stocks> getStock() {
+        return this.stocksService.getAllStocks();
     }
 	
 	@GetMapping(value = {"/{id}"})
-    public Stores getStoreById(@PathVariable (value = "id") long storeId) {
-        return this.storesService.getStore(storeId);
+    public Stocks getStockById(@PathVariable (value = "id") long storeId) {
+        return this.stocksService.getStock(storeId);
     }
 	
 	@PostMapping
-	public void registerNewStore(@RequestBody Stores store) {
-		storesService.addNewStore(store);
+	public void registerNewStock(@RequestBody Stocks stock) {
+		stocksService.addNewStock(stock);
 	}
 	
 	@DeleteMapping(path= "{storeId}")
-	public void deleteStore(@PathVariable("storeId") Long storeId) {
-		storesService.deleteStore(storeId);
+	public void deleteStock(@PathVariable("storeId") int storeId) {
+		stocksService.deleteStock(storeId);
 	}
 	
 	@PutMapping(path= "{storeId}")
-	public void updateStore(@RequestBody Stores store, @PathVariable("storeId") Long storeId) {
-		storesService.updateStore(store, storeId);
+	public void updateStock(@RequestBody Stocks stock, @PathVariable("storeId") int storeId) {
+		stocksService.updateStock(stock, storeId);
 	}
 	
 }

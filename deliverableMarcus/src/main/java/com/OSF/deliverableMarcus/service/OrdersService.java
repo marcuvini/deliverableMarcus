@@ -8,14 +8,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.OSF.deliverableMarcus.entity.Orders;
-import com.OSF.deliverableMarcus.exception.ResourceExceptionHandler;
 import com.OSF.deliverableMarcus.repository.OrdersRepository;
 
 
 @Service
 public class OrdersService {
 
-	private ResourceExceptionHandler resExHand;
 		
 	private OrdersRepository ordersRepository;
 	
@@ -36,7 +34,7 @@ public class OrdersService {
     public Orders getOrder(long id) {
         return ordersRepository
           .findById(id)
-          .orElseThrow(() -> resExHand.new ResourceNotFoundException("Order not found"));
+          .orElseThrow(() -> new IllegalStateException("Order not found"));
     }
  	
     // CREATE NEW ORDER

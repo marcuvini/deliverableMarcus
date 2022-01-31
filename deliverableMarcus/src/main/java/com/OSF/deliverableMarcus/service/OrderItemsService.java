@@ -12,14 +12,12 @@ import org.springframework.stereotype.Service;
 //import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.OSF.deliverableMarcus.entity.OrderItems;
-import com.OSF.deliverableMarcus.exception.ResourceExceptionHandler;
 import com.OSF.deliverableMarcus.repository.OrderItemsRepository;
 
 
 @Service
 public class OrderItemsService {
 
-	private ResourceExceptionHandler resExHand;
 		
 	private OrderItemsRepository orderItemsRepository;
 	
@@ -40,7 +38,7 @@ public class OrderItemsService {
     public OrderItems getOrderItem(long id) {
         return orderItemsRepository
           .findById(id)
-          .orElseThrow(() -> resExHand.new ResourceNotFoundException("Order item not found"));
+          .orElseThrow(() -> new IllegalStateException("Order item not found"));
     }
  	
     // CREATE NEW PRODUCT
