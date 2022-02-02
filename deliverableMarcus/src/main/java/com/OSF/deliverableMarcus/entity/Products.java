@@ -32,7 +32,7 @@ public class Products {
 	
 	@NonNull
 	@Column(name = "brand_id")
-	private int brandId;
+	private long brandId;
 	
 	@NonNull
 	@Column(name = "category_id")
@@ -76,11 +76,11 @@ public class Products {
 		this.productName = productName;
 	}
 
-	public int getBrandId() {
+	public long getBrandId() {
 		return brandId;
 	}
 
-	public void setBrandId(int brandId) {
+	public void setBrandId(long brandId) {
 		this.brandId = brandId;
 	}
 

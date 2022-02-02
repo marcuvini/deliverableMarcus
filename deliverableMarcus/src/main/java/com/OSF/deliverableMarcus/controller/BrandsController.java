@@ -28,8 +28,8 @@ public class BrandsController {
     }
 	
 	@GetMapping(value = {"/{id}"})
-    public Brands getBrandById(@PathVariable (value = "id") long storeId) {
-        return this.brandsService.getBrand(storeId);
+    public Brands getBrandById(@PathVariable (value = "id") long brandId) {
+        return this.brandsService.getBrand(brandId);
     }
 	
 	@PostMapping

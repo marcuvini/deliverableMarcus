@@ -2,16 +2,18 @@ package com.OSF.deliverableMarcus.service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
+import com.OSF.deliverableMarcus.entity.Brands;
+
 
 import com.OSF.deliverableMarcus.entity.Products;
+import com.OSF.deliverableMarcus.repository.BrandsRepository;
 import com.OSF.deliverableMarcus.repository.ProductsRepository;
 
 
@@ -21,10 +23,19 @@ public class ProductsService {
 	private ProductsRepository productsRepository;
 	
 	@Autowired
+	private BrandsRepository brandsRepository;
+	
+	@Autowired
 	public ProductsService(ProductsRepository productsRepository) {
 		super();
 		this.productsRepository = productsRepository;
 	}
+	
+	
+//	public ProductsService(BrandsRepository brandsRepository) {
+//		super();
+//		this.brandsRepository = brandsRepository;
+//	}
 
 	// GET ALL PRODUCTS
 	
@@ -43,7 +54,12 @@ public class ProductsService {
     // CREATE NEW PRODUCT
     
  		public void addNewProduct(Products product) {
-		this.productsRepository.save(product);
+ 			Optional<Brands> brandOptional = brandsRepository
+ 					.findBrandByBrandId(product.getBrandId());
+ 			if(!brandOptional.isPresent()) {
+ 				throw new IllegalStateException("Brand (marca) não existente, favor inserir uma já cadastrada.");
+ 			}
+ 			this.productsRepository.save(product);
 	}
  		
  	// DELETE PRODUCT
